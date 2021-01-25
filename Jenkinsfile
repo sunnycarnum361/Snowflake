@@ -3,10 +3,9 @@ pipeline {
       timeout(time: 1, unit: 'HOURS') 
   }
   agent {
-
     docker {
-      docker.withRegistry("https://registry.hub.docker.com, docker_hub") {
-      docker.image("hashmapinc/sqitch:snowflake-dev").pull()
+      docker.withRegistry('https://registry.hub.docker.com', 'docker_hub') {
+      docker.image('hashmapinc/sqitch:snowflake-dev').pull()
       args "-u root -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=''"
     }
   }
