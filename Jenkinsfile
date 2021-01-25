@@ -6,7 +6,7 @@ pipeline {
    environment {
         PATH = "/usr/local/bin:${env.PATH}"
       }
-    docker {
+   docker {
       docker.withRegistry('https://registry.hub.docker.com', 'docker_hub') {
       docker.image('hashmapinc/sqitch:snowflake-dev').pull()
     }
