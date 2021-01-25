@@ -8,6 +8,9 @@ pipeline {
       args "-u root -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=''"
     }
   }
+}
+
+
 //   stages {
 //     stage('Installing Latest snowsql') {
 //         steps {
@@ -38,4 +41,4 @@ pipeline {
 //       sh 'chmod -R 777 .'
 //     }
 //   }
-}
+//}
