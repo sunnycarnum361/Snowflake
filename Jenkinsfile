@@ -1,6 +1,6 @@
 pipeline {
     options {
-      timeout(time: 1, unit: 'HOURS') 
+      timeout(time: 1, unit: 'HOURS')
   }
   agent {
     environment {
@@ -22,7 +22,7 @@ pipeline {
         withCredentials(bindings: [usernamePassword(credentialsId: 'snowflake_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
           sh '''
               sqitch deploy "db:snowflake://$USERNAME:$PASSWORD@es10367.eu-west-1.snowflakecomputing.com/flipr?Driver=Snowflake;warehouse=sqitch_wh"
-              '''           
+              '''
         }
       }
     }
@@ -31,14 +31,15 @@ pipeline {
         withCredentials(bindings: [usernamePassword(credentialsId: 'snowflake_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
           sh '''
               sqitch verify "db:snowflake://$USERNAME:$PASSWORD@es10367.eu-west-1.snowflakecomputing.com/flipr?Driver=Snowflake;warehouse=sqitch_wh"
-              ''' 
+              '''
         }
       }
-    }      
-  }  
+    }
+  }
 post {
     always {
       sh 'chmod -R 777 .'
     }
   }
+}
 }
