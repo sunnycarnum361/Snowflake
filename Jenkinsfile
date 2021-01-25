@@ -4,8 +4,8 @@ pipeline {
   }
   agent {
     docker {
-      docker.withRegistry('https://registry.hub.docker.com', 'docker_hub') {
-      docker.image('hashmapinc/sqitch:snowflake-dev').pull()
+      image 'hashmapinc/sqitch:snowflake-dev'
+      args "-u root -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=''"
     }
   }
   stages {
@@ -18,7 +18,7 @@ pipeline {
       steps {
         withCredentials(bindings: [usernamePassword(credentialsId: 'snowflake_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
           sh '''
-              sqitch deploy "db:snowflake://$USERNAME:$PASSWORD@es10367.eu-west-1.snowflakecomputing.com/flipr?Driver=Snowflake;warehouse=sqitch_wh"
+              sqitch deploy "db:snowflake://$USERNAME:$PASSWORD@hashmap.snowflakecomputing.com/flipr?Driver=Snowflake;warehouse=sqitch_wh"
               '''
         }
       }
@@ -27,7 +27,7 @@ pipeline {
       steps {
         withCredentials(bindings: [usernamePassword(credentialsId: 'snowflake_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
           sh '''
-              sqitch verify "db:snowflake://$USERNAME:$PASSWORD@es10367.eu-west-1.snowflakecomputing.com/flipr?Driver=Snowflake;warehouse=sqitch_wh"
+              sqitch verify "db:snowflake://$USERNAME:$PASSWORD@hashmap.snowflakecomputing.com/flipr?Driver=Snowflake;warehouse=sqitch_wh"
               '''
         }
       }
@@ -38,5 +38,4 @@ post {
       sh 'chmod -R 777 .'
     }
   }
-}
 }
