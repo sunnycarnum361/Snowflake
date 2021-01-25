@@ -8,6 +8,7 @@ node {
     }
     environment {
       PATH = "/usr/local/bin:${env.PATH}"
+    }
     stage('Build image') {
         /* This builds the actual image */
 
