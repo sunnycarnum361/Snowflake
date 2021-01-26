@@ -1,4 +1,16 @@
 pipeline {
+    agent {
+        docker { image 'hashmapinc/sqitch:snowflake-dev' }
+    }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
+    }
+}
+/*pipeline {
     options {
       timeout(time: 1, unit: 'HOURS')
   }
@@ -38,4 +50,4 @@ post {
       sh 'chmod -R 777 .'
     }
   }
-}
+}*/
