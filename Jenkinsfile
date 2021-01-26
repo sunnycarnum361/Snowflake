@@ -2,11 +2,13 @@ pipeline {
     options {
       timeout(time: 1, unit: 'HOURS')
   }
+ node{
   agent {
     docker {
       image 'hashmapinc/sqitch:snowflake-dev'
       args "-u root -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=''"
     }
+  }
   }
   stages {
     stage('Installing Latest snowsql') {
